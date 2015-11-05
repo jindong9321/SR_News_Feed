@@ -1,0 +1,5 @@
+#include "Pods-NSData+Base64.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/NSData+Base64" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/Bolts" "${PODS_ROOT}/Headers/Public/CrashlyticsFramework" "${PODS_ROOT}/Headers/Public/DHSmartScreenshot" "${PODS_ROOT}/Headers/Public/FBSDKCoreKit" "${PODS_ROOT}/Headers/Public/FBSDKShareKit" "${PODS_ROOT}/Headers/Public/FBSDKShareKit/FBSDKShareKit" "${PODS_ROOT}/Headers/Public/GoogleAnalytics" "${PODS_ROOT}/Headers/Public/MBProgressHUD" "${PODS_ROOT}/Headers/Public/MarqueeLabel" "${PODS_ROOT}/Headers/Public/NJKWebViewProgress" "${PODS_ROOT}/Headers/Public/NSData+Base64" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/Toast" "${PODS_ROOT}/Headers/Public/UIActionSheet+Blocks" "${PODS_ROOT}/Headers/Public/UIAlertView+Blocks" "${PODS_ROOT}/Headers/Public/UIColor-Utilities" "${PODS_ROOT}/Headers/Public/hpple" "${PODS_ROOT}/Headers/Public/pop" "${PODS_ROOT}/Headers/Public/xmlrpc"
+OTHER_LDFLAGS = -ObjC
+PODS_ROOT = ${SRCROOT}
