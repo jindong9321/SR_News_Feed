@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NFRoginViewController.h"
 #import "SRManagerKit.h"
+#import <FacebookSDK/FacebookSDK.h>
 #import <Google/SignIn.h>
 
 
@@ -30,9 +31,6 @@
 
 @property (strong, nonatomic) NSString *bIS4;
 
-
-
-//- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window;
 
 @end
 

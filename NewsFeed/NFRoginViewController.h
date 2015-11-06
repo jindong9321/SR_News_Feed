@@ -51,11 +51,15 @@
 @property (retain, nonatomic) IBOutlet UITextField *textPassword;
 @property (retain, nonatomic) IBOutlet UIButton *connectionButton;
 @property (retain, nonatomic) IBOutlet UIButton *joinButton;
+
 - (IBAction)backgroudTouch:(id)sender;
 
-@property (strong, nonatomic) IBOutlet FBLoginView *fbloginButton;
+
 @property (retain, nonatomic) IBOutlet GIDSignInButton *GGloginButton;
 @property (retain, nonatomic) IBOutlet UIButton *GGsignout;
+@property (retain, nonatomic) IBOutlet UIButton *loginbutton;
+- (IBAction)FB_loginButton_Click:(id)sender;
+
 
 
 @property (retain, nonatomic) NSUserDefaults *saveID;

@@ -18,6 +18,7 @@
 		615430A61BB5151F000DD22A /* NewsFeedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 615430A51BB5151F000DD22A /* NewsFeedTests.m */; };
 		615430B11BB53BB4000DD22A /* NFRoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 615430B01BB53BB4000DD22A /* NFRoginViewController.m */; };
 		615430B41BB54398000DD22A /* NFMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 615430B31BB54398000DD22A /* NFMainViewController.m */; };
+		615707091BEC944C00C4315E /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 615707081BEC944C00C4315E /* FacebookSDK.framework */; settings = {ASSET_TAGS = (); }; };
 		615FBD481BE99E13004311FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 615FBD471BE99E13004311FF /* GoogleService-Info.plist */; settings = {ASSET_TAGS = (); }; };
 		615FBD4A1BE99E73004311FF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 615FBD491BE99E73004311FF /* StoreKit.framework */; };
 		615FBD4C1BE99E7C004311FF /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 615FBD4B1BE99E7C004311FF /* AddressBook.framework */; };
@@ -144,6 +145,7 @@
 		615430B01BB53BB4000DD22A /* NFRoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFRoginViewController.m; sourceTree = "<group>"; };
 		615430B21BB54398000DD22A /* NFMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFMainViewController.h; sourceTree = "<group>"; };
 		615430B31BB54398000DD22A /* NFMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFMainViewController.m; sourceTree = "<group>"; };
+		615707081BEC944C00C4315E /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		615FBD471BE99E13004311FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		615FBD491BE99E73004311FF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		615FBD4B1BE99E7C004311FF /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -305,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				615FBD4E1BE99E8B004311FF /* AssetsLibrary.framework in Frameworks */,
+				615707091BEC944C00C4315E /* FacebookSDK.framework in Frameworks */,
 				615FBD4C1BE99E7C004311FF /* AddressBook.framework in Frameworks */,
 				615FBD4A1BE99E73004311FF /* StoreKit.framework in Frameworks */,
 				61DFF6091BD8E22D00B55A59 /* SystemConfiguration.framework in Frameworks */,
@@ -423,6 +426,7 @@
 				611B5C691BDF062B004AC093 /* FBSDKLoginKit.framework */,
 				611B5C681BDF062B004AC093 /* FBSDKCoreKit.framework */,
 				611B5C741BDF15C1004AC093 /* FacebookSDK.framework */,
+				615707081BEC944C00C4315E /* FacebookSDK.framework */,
 			);
 			name = facebook;
 			sourceTree = "<group>";
