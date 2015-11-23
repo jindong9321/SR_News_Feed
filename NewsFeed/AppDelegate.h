@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NFRoginViewController.h"
+#import "NFMainViewController.h"
 #import "SRManagerKit.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Google/SignIn.h>
@@ -24,10 +25,12 @@
 
 @property(strong, nonatomic) UINavigationController *navigationController;
 @property (strong, nonatomic) NFRoginViewController *roginviewcontroller;
+@property (strong, nonatomic) NFMainViewController *nfmainviewcontroller;
 
 //@property (strong,nonatomic) NSString *deviceToken_id;
 
 @property (retain, nonatomic) NSUserDefaults *deviceToken_id;
+@property (retain,nonatomic) NSUserDefaults *user_nameString;
 
 @property (strong, nonatomic) NSString *bIS4;
 

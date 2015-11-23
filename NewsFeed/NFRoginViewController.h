@@ -26,8 +26,6 @@
 #import "SRManagerKit.h"
 #import "SRXMLRPCManager.h"
 
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <Google/SignIn.h>
 
@@ -54,20 +52,22 @@
 
 - (IBAction)backgroudTouch:(id)sender;
 
-
-@property (retain, nonatomic) IBOutlet GIDSignInButton *GGloginButton;
-@property (retain, nonatomic) IBOutlet UIButton *GGsignout;
-@property (retain, nonatomic) IBOutlet UIButton *loginbutton;
+@property (retain, nonatomic) IBOutlet UIButton *loginbutton;  //facebook loginbutton
 - (IBAction)FB_loginButton_Click:(id)sender;
+@property (retain, nonatomic) IBOutlet UIButton *gg_loginbutton;
+- (IBAction)gg_loginButton_Click:(id)sender;
 
 
 
 @property (retain, nonatomic) NSUserDefaults *saveID;
 @property (retain, nonatomic) NSUserDefaults *savePW;
 @property (retain, nonatomic) NSUserDefaults *member_id;
-@property (retain,nonatomic) NSUserDefaults *FB_user_id;
-@property(retain, nonatomic)NSUserDefaults *GG_user_id;
-
+@property (retain,nonatomic) NSUserDefaults *SNS_user_id;
+@property (retain,nonatomic) NSUserDefaults *SNS_user_name;
+@property (retain,nonatomic) NSUserDefaults *SNS_user_email;
+@property (retain,nonatomic) NSUserDefaults *user_nameString;
+@property (retain,nonatomic) NSUserDefaults *SNS_link;
+@property (retain,nonatomic) NSUserDefaults *SNS_user_Token;
 
 @property(strong, nonatomic) SRXMLRPCManager *srxmlrpcmanager;
 @property(strong, nonatomic)NFSRTableViewController *NFSRtableViewController;
@@ -78,8 +78,8 @@
 - (IBAction)connectionButton_Click:(UIButton *)sender;
 - (IBAction)joinButton_Click:(UIButton *)sender;
 
-
-
+- (void)userLoggedOut;
+-(void) toggleAuthUI;
 
 
 

@@ -11,7 +11,7 @@
 
 #import "SRManager.h"
 #import "SRXMLRPCManager.h"
-#import "SRSettingsManager.h"
+
 
 
 

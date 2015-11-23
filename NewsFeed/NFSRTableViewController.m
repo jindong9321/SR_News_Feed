@@ -29,6 +29,8 @@ NSUInteger element_Count;
 
 int rowNo;
 
+
+
 //refresh
 -(void)refreshView:(UIRefreshControl *)refresh {
     
@@ -47,6 +49,16 @@ int rowNo;
     
 }
 
+- (IBAction)SettingButton_Click:(id)sender {
+    
+    [self.view endEditing:YES];
+    [self.frostedViewController.view endEditing:YES];
+    
+    [self.frostedViewController presentMenuViewController];
+
+    
+}
+
 - (void)resetData
 {
     
@@ -55,7 +67,9 @@ int rowNo;
     ASIFormDataRequest *request;
     
     NSLog(@"table_url scheme => %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"url_scheme"]);
-    if([[NSUserDefaults standardUserDefaults] objectForKey:@"url_scheme" ] == nil ){
+    NSLog(@" link = > %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"SNS_link"]);
+    if(([[NSUserDefaults standardUserDefaults] objectForKey:@"url_scheme" ] == nil) && ([[NSUserDefaults standardUserDefaults] objectForKey:@"SNS_link"] == nil)  ){
+        NSLog(@"\n\n 1 \n\n");
         url_1 = [NSURL URLWithString:@"http://www.sugarain.kr/login/accounts/do_login"];
         request = [ASIFormDataRequest requestWithURL:url_1];
         [request setPostValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"saveID"] forKey:@"userid"];
@@ -63,25 +77,40 @@ int rowNo;
         
 
     }else{
-//         httpUrlCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        NSString *token = @"CAAMfZB1boHKUBADbpH7dDxTuD6CfvrDf07CsMMM16AzM3FZCSSPzJeG2WPIXkq1xwdEONxR1ZCap6yB7Hhfyw5dVzjwSvEojbWke5BpTsHhBSt8byAjsDou5l5n1LZBQYqOcJVtNWjehtZACGzDTGGM1zl7C2rGIUCgoMm9PP7ydRH7ZBL2P5QiMNPJXZAi2rXaJjomPTZB82xA0rLjOK6Aj";
-        
+ NSLog(@"\n\n 2 \n\n");
+        NSLog(@"url-scheme = > %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"url_scheme"]);
          request = [ASIFormDataRequest requestWithURL:url];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [request setPostValue:@"facebook" forKey:@"sns"];
-        [request setPostValue:[defaults objectForKey:@"FB_user_id"]forKey:@"snsid"];
-        [request setPostValue:[defaults objectForKey:@"FB_user_name"]forKey:@"name"];
-        [request setPostValue:[defaults objectForKey:@"user_email"] forKey:@"email"];
-        [request setPostValue:@"https://graph.facebook.com/824671480985431/picture?type=large" forKey:@"picture"];
-        [request setPostValue:token forKey:@"token"];
+         NSLog(@" SNS_link = > %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"SNS_link"]);
+        if( [[defaults objectForKey:@"SNS_link"] isEqualToString:@""]){
+             NSLog(@"\n\n 3 \n\n");
+            NSLog(@" \n\n google \n\n");
+            [request setPostValue:@"google" forKey:@"sns"];
+        }
+        else{
+            NSLog(@"\n\n 4 \n\n");
+            NSLog(@"\n\nfacebook\n\n");
+            [request setPostValue:@"facebook" forKey:@"sns"];
+
+
+        }
+        NSLog(@"\n\n 5 \n\n");
+        NSLog(@" SNS_user_id => %@",[defaults objectForKey:@"SNS_user_id"]);
+        NSLog(@" SNS_user_name => %@",[defaults objectForKey:@"SNS_user_name"]);
+        NSLog(@" SNS_user_email => %@",[defaults objectForKey:@"SNS_user_email"]);
+        NSLog(@" table => SNS_user_Token => %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"SNS_user_Token"]);
+        
+        [request setPostValue:[defaults objectForKey:@"SNS_user_id"]forKey:@"snsid"];
+        [request setPostValue:[defaults objectForKey:@"SNS_user_name"]forKey:@"name"];
+        [request setPostValue:[defaults objectForKey:@"SNS_user_email"] forKey:@"email"];
+        [request setPostValue:[defaults objectForKey:@"SNS_user_Token"] forKey:@"token"];
+
+        //[request setPostValue:@"https://graph.facebook.com/824671480985431/picture?type=large" forKey:@"picture"];
+       
         [request setResponseEncoding:NSUTF8StringEncoding];
         
-        
-//        NSString *contentType = [NSString stringWithFormat:@"application/x-www-form-urlencoded"];
-//        [request setPostValue:contentType forKey:@"Content-Type"];
-//        [request setPostValue:@"application/x-www-form-urlencoded" forKey:@"Content-Type"];
     }
-    
+
     [request setDelegate:self];
     [request startSynchronous];
     [request setCompletionBlock:^{
@@ -176,6 +205,8 @@ int rowNo;
 {
     [super viewDidLoad];
     
+    //self.title = @"";
+    
     //refresh
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@""];
@@ -193,6 +224,7 @@ int rowNo;
     self.navigationController.navigationBarHidden = NO;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSLog(@"\ntablebiew_memeberid => %@", [defaults objectForKey:@"member_id"]);
     if ( [defaults objectForKey:@"member_id"] == nil ) {
         NSLog(@"No username found");
         UIAlertController * alert=   [UIAlertController
@@ -222,7 +254,7 @@ int rowNo;
         [alert addAction:cancel];
         
         [self presentViewController:alert animated:YES completion:nil];
-        
+    
     }
     else {
         
@@ -305,6 +337,14 @@ int rowNo;
 }
 
 - (void)dealloc {
+    [_setting_Button release];
+    [_Setting_Button release];
     [super dealloc];
+}
+- (IBAction)setting_Button_Click:(id)sender {
+    
+    NFMainViewController *mainView =[self.storyboard instantiateViewControllerWithIdentifier:@"NFMainViewController"];
+    [self.navigationController pushViewController:mainView animated:YES];
+
 }
 @end

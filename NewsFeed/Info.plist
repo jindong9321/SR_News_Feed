@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -52,7 +52,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.1.4</string>
+	<string>1.2</string>
 	<key>FacebookAppID</key>
 	<string>879589285436581</string>
 	<key>FacebookDisplayName</key>
@@ -95,30 +95,30 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>UserInfo</key>
 	<dict>
-		<key>FB_user_name</key>
-		<data></data>
-		<key>url_scheme</key>
-		<data></data>
-		<key>user_email</key>
-		<data></data>
-		<key>GG_user_id</key>
-		<data></data>
 		<key>FB_member_id</key>
 		<data></data>
-		<key>FB_user_id</key>
-		<data></data>
 		<key>MySavedCookies</key>
+		<data></data>
+		<key>SNS_link</key>
+		<data></data>
+		<key>SNS_user_email</key>
+		<data></data>
+		<key>SNS_user_id</key>
+		<data></data>
+		<key>SNS_user_name</key>
+		<data></data>
+		<key>SNS_user_Token</key>
 		<data></data>
 		<key>detail_Url</key>
 		<data></data>
 		<key>deviceToken_id</key>
+		<data></data>
+		<key>keychain_UUID</key>
 		<data></data>
 		<key>member_id</key>
 		<data></data>
@@ -127,6 +127,10 @@
 		<key>savePW</key>
 		<data></data>
 		<key>textPW</key>
+		<data></data>
+		<key>url_scheme</key>
+		<data></data>
+		<key>user_nameString</key>
 		<data></data>
 	</dict>
 </dict>

@@ -20,6 +20,7 @@
 
 @property (retain, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) NFSRTableViewController *nfsrtableviewcontroller;
+- (IBAction)domainButton_Click:(id)sender;
 
 @end
 

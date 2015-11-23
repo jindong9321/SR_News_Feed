@@ -34,7 +34,7 @@ method : Initialize
 ///////////////////////////////// 완료
 - (void) saveID:(NSString *)saveID  savePW:(NSString *)savePW successHandler:(SRXMLRPCSuccessHandler)successHandler failHandler:(SRXMLRPCFailHandler)failHandler ;
 
-- (void) member_id:(NSString *)memberID requestInitializeWithDeviceId:(NSString *)deviceId token:(NSString *)token  isForced:(BOOL)isForced successHandler:(SRXMLRPCSuccessHandler)successHandler failHandler:(SRXMLRPCFailHandler)failHandler;
+- (void) member_id:(NSString *)memberID requestInitializeWithDeviceId:(NSString *)deviceId token:(NSString *)token  aram:(NSString *)aram isForced:(BOOL)isForced successHandler:(SRXMLRPCSuccessHandler)successHandler failHandler:(SRXMLRPCFailHandler)failHandler;
 
 - (void) SNSType:(NSString *)snsType  userid:(NSString *)FB_userid    isForced:(BOOL)isForced successHandler:(SRXMLRPCSuccessHandler)successHandler failHandler:(SRXMLRPCFailHandler)failHandler;
 @end

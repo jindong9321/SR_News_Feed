@@ -122,7 +122,7 @@ SHARED_SINGLETON_CLASS(SRXMLRPCManager);
 }
 
 
-- (void) member_id:(NSString *)memberID requestInitializeWithDeviceId:(NSString *)deviceId token:(NSString *)token  isForced:(BOOL)isForced successHandler:(SRXMLRPCSuccessHandler)successHandler failHandler:(SRXMLRPCFailHandler)failHandler {
+- (void) member_id:(NSString *)memberID requestInitializeWithDeviceId:(NSString *)deviceId token:(NSString *)token aram:(NSString *)aram isForced:(BOOL)isForced successHandler:(SRXMLRPCSuccessHandler)successHandler failHandler:(SRXMLRPCFailHandler)failHandler {
     
     static dispatch_once_t initializeOnceToken;
     if (isForced == YES)
@@ -133,6 +133,7 @@ SHARED_SINGLETON_CLASS(SRXMLRPCManager);
         [self _addObject:memberID toParameters:parameters];
         [self _addObject:deviceId toParameters:parameters];
         [self _addObject:token toParameters:parameters];
+        [self _addObject:aram toParameters:parameters];
         
         
         [self _requestWithMethod:@"UpdateDevice" parameters:parameters successHandler:successHandler failHandler:failHandler];

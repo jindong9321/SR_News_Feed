@@ -33,32 +33,37 @@
 #define TARGET_URL2 @"http://www.sugarain.kr/dashboard"
 
 @interface NFMainViewController : UIViewController <UIAlertViewDelegate>{
-    NSMutableArray *arrNewsList;
-    NSMutableArray *noarrNewsList;
-    NSMutableArray *nameNewsList;
-    NSString *urlStr;
+//    NSMutableArray *arrNewsList;
+//    NSMutableArray *noarrNewsList;
+//    NSMutableArray *nameNewsList;
+//    NSString *urlStr;
     NSString *urlStr2;
-    NSMutableArray *linkurl;
-    NSString *urllist;
-    NSMutableArray *arrList;
-    NFRoginViewController *firstView;
+//    NSMutableArray *linkurl;
+//  NSString *urllist;
+//    NSMutableArray *arrList;
+//    NFRoginViewController *firstView;
     NSUserDefaults *userDefaults;
-    NSMutableData *firstdata;
-    NSMutableData *seconddata;
+//    NSMutableData *firstdata;
+//    NSMutableData *seconddata;
     NSString *urlneed;
-    
+
 }
+
+
+@property (strong, nonatomic) NFRoginViewController *loginviewcontroller;
+
 @property (retain, nonatomic) IBOutlet UIWebView *Profile_view;
-
-
 @property (retain, nonatomic) IBOutlet UIButton *inconnectionButton;
 
-- (IBAction)domainButton_Click:(UIButton *)sender;
-
-- (IBAction)inconnection:(UIButton *)sender;
-
-@property (strong, nonatomic) NFRoginViewController *roginviewcontroller;
 @property (retain, nonatomic) IBOutlet UILabel *usernamelabel;
+@property (retain, nonatomic) IBOutlet UILabel *aramLabel;
+
+@property (retain, nonatomic) IBOutlet UISwitch *switchButton;
+@property (retain, nonatomic) IBOutlet UITableViewCell *aramSettingCell;
+
+- (IBAction)domainButton_Click:(UIButton *)sender;
+- (IBAction)inconnection:(UIButton *)sender;
+- (IBAction)switchButton:(id)sender;
 
 
 @end

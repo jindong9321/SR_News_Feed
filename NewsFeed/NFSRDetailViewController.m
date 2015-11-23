@@ -101,5 +101,14 @@
     return YES;
 }
 
+- (IBAction)domainButton_Click:(id)sender {
+          UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"서비스 양해 공지"
+                                                            message: @"이 웹사이트는 PC에 최적화되어있습니다.     사용이 원활하지 않을 수 있으니 PC에서 접속해주시기 바랍니다. "
+                                                           delegate:self
+                                                  cancelButtonTitle:@"확인"
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+        [alertView release];
+}
 @end
 

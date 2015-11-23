@@ -11,9 +11,7 @@
 #include "NFSRTableViewController.h"
 #import "NSString+NSHash.h"
 #import "KeyChainUUID.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <FBSDKShareKit/FBSDKShareKit.h>
+
 #import <FacebookSDK/FacebookSDK.h>
 
 
@@ -43,7 +41,7 @@ SHARED_SINGLETON_CLASS(NFRoginViewController);
 
 
 - (void)viewDidLoad {
-        [super viewDidLoad];
+    [super viewDidLoad];
     
     [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"]
                                        allowLoginUI:NO
@@ -51,196 +49,51 @@ SHARED_SINGLETON_CLASS(NFRoginViewController);
                                       // Handler for session state changes
                                       // This method will be called EACH time the session state changes,
                                       // also for intermediate states and NOT just when the session open
-                                       [self sessionStateChanged:session state:state error:error];
+                                      [self sessionStateChanged:session state:state error:error];
                                   }];
-
     
-        self.navigationController.navigationBarHidden = YES;
-        [[NFSRTableViewController alloc] init];
-        
-        //    // Google
-        //   [GIDSignIn sharedInstance].uiDelegate = self;
-        //
-        //    [[NSNotificationCenter defaultCenter]
-        //     addObserver:self
-        //     selector:@selector(receiveToggleAuthUINotification:)
-        //     name:@"ToggleAuthUINotification"
-        //     object:nil];
-        //
-        //    [self toggleAuthUI];
-        //    // google_end
-        
-        
-        // 백그라운드 컬러 적용
-        _BGview.backgroundColor = [UIColor colorWithRed:77/255.0 green:182/255.0 blue:232/255.0 alpha:1.0];
-        
-        // 로고 이미지 적용
-        _MainImageView.image = [UIImage imageNamed:@"sugarain_logo.png"];
-        
-        // 버튼 바탕 색
-        [_connectionButton setBackgroundColor:[UIColor whiteColor]];
-        // 버튼테두리
-        _connectionButton.layer.cornerRadius = 6;
-        
-        
-        // 버튼 바탕 색
-        [_joinButton setBackgroundColor:[UIColor whiteColor]];
-        // 버튼테두리
-        _joinButton.layer.cornerRadius = 6;
+    
+    self.navigationController.navigationBarHidden = YES;
+    [[NFSRTableViewController alloc] init];
+    
+    // Google
+    [GIDSignIn sharedInstance].uiDelegate = self;
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(receiveToggleAuthUINotification:)
+     name:@"ToggleAuthUINotification"
+     object:nil];
+    
+    [self toggleAuthUI];
+    // google_end
+    
+    
+    // 백그라운드 컬러 적용
+    _BGview.backgroundColor = [UIColor colorWithRed:77/255.0 green:182/255.0 blue:232/255.0 alpha:1.0];
+
+    // 로고 이미지 적용
+    _MainImageView.image = [UIImage imageNamed:@"sugarain_logo.png"];
+    
+    // 버튼 바탕 색
+    [_connectionButton setBackgroundColor:[UIColor whiteColor]];
+    // 버튼테두리
+    _connectionButton.layer.cornerRadius = 6;
+    // 버튼 바탕 색
+    [_joinButton setBackgroundColor:[UIColor whiteColor]];
+    // 버튼테두리
+    _joinButton.layer.cornerRadius = 6;
     
     _textID.backgroundColor = [UIColor whiteColor];
     _textPassword.backgroundColor = [UIColor whiteColor];
     
-}
-
-
-
-#pragma mark - FBLoginViewDelegate
-//
-////facebook login
-//-(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView{
-//    
-//    
-//    
-//}
-//
-////facebook login
-//-(void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView{
-//     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"url_scheme"];
-//    NSLog(@"You're logged out");
-//}
-//
-////facebook login
-//-(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user{
-//    
-//    
-//        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-//        [prefs setObject:user.id forKey:@"FB_user_id"];
-//        NSLog(@"username => %@", user.name);
-//        
-//        NSString *FB_email = [user objectForKey:@"email"];
-//        
-//        [prefs setObject:FB_email forKey:@"user_email"];
-//        [ prefs setObject:user.name forKey:@"FB_user_name"];
-//        NSLog(@"GG_usr_email_fa => %@",[prefs objectForKey:@"user_email"]);
-//    
-//    
-//        [[SRXMLRPCManager sharedManager]SNSType:@"facebook"
-//                                         userid:[[NSUserDefaults standardUserDefaults] objectForKey: @"FB_user_id"]
-//                                       isForced:NO
-//                                 successHandler:^(id XMLData) {
-//                                     NSString *FB_id = XMLData[@"member_id"];
-//                                     [[NSUserDefaults standardUserDefaults] setObject:FB_id forKey:@"member_id"];
-//                                     UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"navigationview"];
-//                                     [self presentViewController:controller animated:YES completion:nil];
-//                                     
-//                                     
-//                                 }
-//                                    failHandler:^(NSError *error, id XMLData) {
-//                                        
-//                                    }];
-//        
-//        
-//        NSLog(@"You're logged in");
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        
-//        //request post lis
-//        NSLog(@" FB_member_id => %@",[prefs objectForKey:@"member_id"]);
-//        NSLog(@"user => %@",user);
-//        
-//        [prefs synchronize];
-//}
-
-////facebook login
-//- (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error{
-//    NSLog(@"%@", [error localizedDescription]);
-//}
-
-//// Present a view that prompts the user to sign in with Google
-//- (void)signIn:(GIDSignIn *)signIn presentViewController:(UIViewController *)viewController {
-//    [self presentViewController:viewController animated:YES completion:nil];
-//
-//
-//}
-//
-//// Dismiss the "Sign in with Google" view
-//- (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController {
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
-//
-//// google
-//- (void)toggleAuthUI {
-//    if ([GIDSignIn sharedInstance].currentUser.authentication == nil) {
-//        // Not signed in
-//        self.GGloginButton.hidden = NO;
-//        self.GGsignout.hidden = YES;
-//        } else {
-//        // Signed in
-//        self.GGloginButton.hidden = YES;
-//        self.GGsignout.hidden = NO;
-//    }
-//}
-//
-//// google logout 메소드
-//- (IBAction)didTapSignOut:(id)sender {
-//    [[GIDSignIn sharedInstance] signOut];
-//    // [START_EXCLUDE silent]
-//    [self toggleAuthUI];
-//    // [END_EXCLUDE]
-//}
-//
-//
-//
-//// google
-//- (void) receiveToggleAuthUINotification:(NSNotification *) notification {
-//    if ([[notification name] isEqualToString:@"ToggleAuthUINotification"]) {
-//
-//            [self toggleAuthUI];
-//
-//        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-//        [[SRXMLRPCManager sharedManager]SNSType:@"google"
-//                                         userid:[prefs objectForKey: @"GG_user_id"]
-//                                               isForced:NO
-//                                 successHandler:^(id XMLData) {
-//                                     NSLog(@" Success type id ");
-//                                     NSString *GG_id = XMLData[@"member_id"];
-//                                     NSLog(@"GG_id => %@", GG_id);
-//                                  	  [prefs setObject:GG_id forKey:@"member_id"];
-//
-//                                 } failHandler:^(NSError *error, id XMLData) {
-//
-//                                 }];
-//
-//        [prefs synchronize];
-//    }
-//    UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"navigationview"];
-//    [controller setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-//    [self presentViewController:controller animated:YES completion:nil];
-//
-//    NSLog(@" GGmemeber_id -> %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"memeber_id"]);
-//
-//}
-
-//facebook userInfo
--(void) RequestConnection:(FBRequestConnection *)connect user:(id<FBGraphUser>)user error:(NSError *)error{
+    //facebook button & google button
+    _gg_loginbutton.layer.cornerRadius = 6;
+    _loginbutton.layer.cornerRadius = 6;
     
-//    NSLog(@"user info => %@", user);
-//    
-//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-//    [prefs setObject:user.id forKey:@"FB_user_id"];
-//    NSLog(@"username => %@", user.name);
-//     NSLog(@" FB_user_id => %@",[prefs objectForKey:@"FB_user_id"]);
-//    
-//    NSString *FB_email = [user objectForKey:@"email"];
-//    
-//    [prefs setObject:FB_email forKey:@"user_email"];
-//    [ prefs setObject:user.name forKey:@"FB_user_name"];
-//    NSLog(@"GG_usr_email_fa => %@",[prefs objectForKey:@"user_email"]);
-//    
-//    [prefs synchronize];
+    
     
 }
-
 
  - (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error{
      // If the session was opened successfully
@@ -306,17 +159,16 @@ SHARED_SINGLETON_CLASS(NFRoginViewController);
 // Show the user the logged-in UI
 - (void)userLoggedIn{
     // Set the button title as "Log out"
-    [_loginbutton setTitle:@"Log out" forState:UIControlStateNormal];
+  //  [_loginbutton setTitle:@"Log out" forState:UIControlStateNormal];
 }
 
 
 - (void)userLoggedOut
 {
     // Set the button title as "Log in with Facebook"
-    [_loginbutton setTitle:@"Log in with Facebook" forState:UIControlStateNormal];
+    [_loginbutton setTitle:@"f" forState:UIControlStateNormal];
     // Confirm logout message
-    [self showMessage:@"You're now logged out" withTitle:@""];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"url_scheme"];
+    //[self showMessage:@"You're now logged out" withTitle:@""];
 }
 
 
@@ -333,69 +185,79 @@ SHARED_SINGLETON_CLASS(NFRoginViewController);
 
 //facebook login
 - (IBAction)FB_loginButton_Click:(id)sender {
-    // If the session state is any of the two "open" states when the button is clicked
-    if (FBSession.activeSession.state == FBSessionStateOpen || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
-        // Close the session and remove the access token from the cache
-        // The session state handler (in the app delegate) will be called automatically
-        [FBSession.activeSession closeAndClearTokenInformation];
-        
-        
-        // If the session state is not any of the two "open" states when the button is clicked
-    } else {
-        // Open a session showing the user the login UI
-        // You must ALWAYS ask for public_profile permissions when opening a session
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:
-         ^(FBSession *session, FBSessionState state, NSError *error) {
-             [self sessionStateChanged:session state:state error:error];
-         
-             [[FBRequest requestForMe] startWithCompletionHandler: ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
-                 NSLog(@"user info => %@", user);
-                 
-                 NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-                 [prefs setObject:user.id forKey:@"FB_user_id"];
-                 NSLog(@"username => %@", user.name);
-                 NSLog(@" FB_user_id => %@",[prefs objectForKey:@"FB_user_id"]);
-                 
-                 NSString *FB_email = [user objectForKey:@"email"];
-                 
-                 [prefs setObject:FB_email forKey:@"user_email"];
-                 [ prefs setObject:user.name forKey:@"FB_user_name"];
-                 NSLog(@"GG_usr_email_fa => %@",[prefs objectForKey:@"user_email"]);
-                 
-                 NSLog(@" \n\nif 전 FB_user_id => %@",[prefs objectForKey:@"FB_user_id"]);
-                 
-                 if([prefs objectForKey:@"FB_user_id"] != nil){
-                     NSLog(@" \n\nif 후 FB_user_id => %@",[prefs objectForKey:@"FB_user_id"]);
 
-                     [[SRXMLRPCManager sharedManager]SNSType:@"facebook"
-                                                      userid:[[NSUserDefaults standardUserDefaults] objectForKey: @"FB_user_id"]
-                                                    isForced:NO
-                                              successHandler:^(id XMLData) {
-                                                  NSLog(@"\n\n Success \n\n");
-                                                  NSString *FB_id = XMLData[@"member_id"];
-                                                  [[NSUserDefaults standardUserDefaults] setObject:FB_id forKey:@"member_id"];
-                                                  UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"navigationview"];
-                                                  [controller setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-                                                  [self presentViewController:controller animated:YES completion:nil];
-                                                  
-                                                  
-                                              }
-                                                 failHandler:^(NSError *error, id XMLData) {
-                                                     
-                                                 }];
-                     
-                     
-                     NSLog(@"You're logged in");
-                     [[NSUserDefaults standardUserDefaults] synchronize];
-                     
-                     //request post lis
-                     NSLog(@" FB_member_id => %@",[prefs objectForKey:@"member_id"]);
-                     
-                     [prefs synchronize];
-                 }
-             }];
-        }];
-    }
+    [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:
+     ^(FBSession *session, FBSessionState state, NSError *error) {
+         [self sessionStateChanged:session state:state error:error];
+         
+         [[FBRequest requestForMe] startWithCompletionHandler: ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
+             NSLog(@"user info => %@", user);
+             NSLog(@" user link = > %@", user.link);
+             
+             NSLog(@"user token => %@", session.accessTokenData.accessToken);
+             
+             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+             [prefs setObject:user.id forKey:@"SNS_user_id"];
+             NSString *FB_email = [user objectForKey:@"email"];
+             [prefs setObject:FB_email forKey:@"SNS_user_email"];
+              [ prefs setObject:FB_email forKey:@"user_nameString"];
+             [ prefs setObject:user.name forKey:@"SNS_user_name"];
+             [ prefs setObject:user.link forKey:@"SNS_link"];
+             [prefs setObject:session.accessTokenData.accessToken forKey:@"SNS_user_Token"];
+             
+             
+             NSLog(@"username => %@", [prefs objectForKey:@"SNS_user_name"]);
+             NSLog(@" SNS_user_id => %@",[prefs objectForKey:@"SNS_user_id"]);
+             NSLog(@"fa_SNS_user_email => %@",[prefs objectForKey:@"SNS_user_email"]);
+
+             if([prefs objectForKey:@"SNS_user_id"] != nil){
+             [[SRXMLRPCManager sharedManager]SNSType:@"facebook"
+                                              userid:[prefs objectForKey: @"SNS_user_id"]
+                                            isForced:YES
+                                      successHandler:^(id XMLData) {
+                                          NSLog(@"\n\n Success \n\n");
+                                          NSString  *FB_id = [[NSString alloc]init];
+                                          FB_id = XMLData[@"member_id"];
+                                          [[NSUserDefaults standardUserDefaults] setObject:FB_id forKey:@"member_id"];
+                                          
+                                          NSLog(@"FB_member_id => %@",[prefs objectForKey:@"member_id"]);
+                                          [prefs setObject:[KeyChainUUID Value] forKey:@"keychain_UUID"];
+                                          
+                                          
+                                          
+                                          [[SRXMLRPCManager sharedManager]member_id:[prefs objectForKey:@"member_id"]
+                                                      requestInitializeWithDeviceId:[prefs objectForKey:@"keychain_UUID"]
+                                                                              token:[prefs objectForKey:@"deviceToken_id"]
+                                                                               aram:@"Y"
+                                                                           isForced:YES
+                                                                     successHandler:^(id XMLData) {
+                                                                         
+                                                                         
+                                                                     } failHandler:^(NSError *error, id XMLData) {
+                                                                         
+                                                                     }];
+
+                                          UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"navigationview"];
+                                          [controller setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+                                          [self presentViewController:controller animated:YES completion:nil];
+                                  
+                                      }
+                                         failHandler:^(NSError *error, id XMLData) {
+                                             NSLog(@" \n\nfailHandler ");
+                                             NFWebViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"webViewController"];
+                                             [controller setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+                                             [self presentViewController:controller animated:YES completion:nil];
+                                             
+                                         }];
+
+             NSLog(@"You're logged in");
+             
+              [prefs synchronize];
+             }
+         }];
+         
+     }];
+    
 }
 
 
@@ -404,6 +266,91 @@ SHARED_SINGLETON_CLASS(NFRoginViewController);
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)gg_loginButton_Click:(id)sender {
+    [[GIDSignIn sharedInstance]signIn];
+    
+}
+// Present a view that prompts the user to sign in with Google
+- (void)signIn:(GIDSignIn *)signIn presentViewController:(UIViewController *)viewController {
+    [self presentViewController:viewController animated:YES completion:nil];
+    
+}
+
+// Dismiss the "Sign in with Google" view
+- (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController {
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+// google
+- (void)toggleAuthUI {
+    if ([GIDSignIn sharedInstance].currentUser.authentication == nil) {
+        // Not signed in
+        _gg_loginbutton.hidden = NO;
+        } else {
+        // Signed in
+        _gg_loginbutton.hidden = NO;
+        NSLog(@" google loginout");
+    }
+}
+
+
+
+// google
+- (void) receiveToggleAuthUINotification:(NSNotification *) notification {
+    
+    
+    if ([[notification name] isEqualToString:@"ToggleAuthUINotification"]) {
+
+            [self toggleAuthUI];
+
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [[SRXMLRPCManager sharedManager]SNSType:@"google"
+                                         userid:[prefs objectForKey: @"SNS_user_id"]
+                                               isForced:YES
+                                 successHandler:^(id XMLData) {
+                                     NSLog(@" Success type id ");
+                                     NSString *GG_id = XMLData[@"member_id"];
+                                     NSLog(@"GG_id => %@", GG_id);
+                                  	  [prefs setObject:GG_id forKey:@"member_id"];
+                                     
+                                     NSLog(@"\n\n\n------- keychainUUID -------  %@ ------- \n\n\n",[KeyChainUUID Value]);
+                                     [[NSUserDefaults standardUserDefaults] setObject:[KeyChainUUID Value] forKey:@"keychain_UUID"];
+
+                                     [[SRXMLRPCManager sharedManager]member_id:[prefs objectForKey:@"member_id"]
+                                                 requestInitializeWithDeviceId:[prefs objectForKey:@"keychain_UUID"]
+                                                                         token:[prefs objectForKey:@"deviceToken_id"]
+                                                                          aram:@"Y"
+                                                                      isForced:YES
+                                                                successHandler:^(id XMLData) {
+                                                                    
+                                                                    
+                                                                } failHandler:^(NSError *error, id XMLData) {
+                                                                    
+                                                                }];
+
+                                     
+                                     UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"navigationview"];
+                                     [controller setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+                                     [self presentViewController:controller animated:YES completion:nil];
+
+
+                                 } failHandler:^(NSError *error, id XMLData) {
+                                     NSLog(@"\ngoogle login fail\n");
+                                     NFWebViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"webViewController"];
+                                     [controller setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+                                     [self presentViewController:controller animated:YES completion:nil];
+                                     [[GIDSignIn sharedInstance] signOut];
+                                     
+                                }];
+
+        [prefs synchronize];
+    }
+
+   
+    NSLog(@" GGmemeber_id -> %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"memeber_id"]);
+
+}
 
 
 // 계정연결 버튼 클릭시 NFMainViewController 이동
@@ -418,14 +365,14 @@ SHARED_SINGLETON_CLASS(NFRoginViewController);
         else{
             
             
-            NSURL *url = [NSURL URLWithString:@"http://www.sugarain.kr/login/accounts/do_login"];
-            
-            ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-            [request setPostValue:self.textID.text forKey:@"userid"];
-            [request setPostValue:self.textPassword.text forKey:@"passwd"];
-            //[request setPostValue:@"Y" forKey:@"autologin"];
-            [request setDelegate:self];
-            [request startSynchronous];
+//            NSURL *url = [NSURL URLWithString:@"http://www.sugarain.kr/login/accounts/do_login"];
+//            
+//            ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+//            [request setPostValue:self.textID.text forKey:@"userid"];
+//            [request setPostValue:self.textPassword.text forKey:@"passwd"];
+//            //[request setPostValue:@"Y" forKey:@"autologin"];
+//            [request setDelegate:self];
+//            [request startSynchronous];
             
             
             NSString *userID = _textID.text;
@@ -436,28 +383,36 @@ SHARED_SINGLETON_CLASS(NFRoginViewController);
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             [prefs setObject:userID forKey:@"saveID"];
+            [prefs setObject:userID forKey:@"user_nameString"];
             [prefs setObject:userPW forKey:@"textPW"];
             [prefs setObject:[string SHA256] forKey:@"savePW"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
             
             //SRXMLRPCManager 호출
-            [[SRXMLRPCManager sharedManager] saveID:userID savePW:[string SHA256] successHandler:^(id XMLData){ NSString *memberd = XMLData[@"member_id"];
+            [[SRXMLRPCManager sharedManager] saveID:userID savePW:[string SHA256] successHandler:^(id XMLData){
+                NSString *memberd = [[NSString alloc]init];
+                memberd = XMLData[@"member_id"];
                 NSLog (@"memberid=%@", memberd);
+                
                 [[NSUserDefaults standardUserDefaults] setObject:memberd forKey:@"member_id"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
                 
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                NSString *deviceToken = [defaults objectForKey:@"deviceToken_id"];
-                NSLog(@"deviceToken: %@", deviceToken);
+                //NSString *deviceToken = [defaults objectForKey:@"deviceToken_id"];
+                //                NSLog(@"deviceToken: %@", deviceToken);
                 NSLog(@"\n\n\n------- keychainUUID -------  %@ ------- \n\n\n",[KeyChainUUID Value]);
+                [[NSUserDefaults standardUserDefaults] setObject:[KeyChainUUID Value] forKey:@"keychain_UUID"];
+                
                 
                 [[SRXMLRPCManager sharedManager]member_id:[defaults objectForKey:@"member_id"]
-                            requestInitializeWithDeviceId:[KeyChainUUID Value]
-                                                    token:deviceToken
-                                                 isForced:NO
+                            requestInitializeWithDeviceId:[defaults objectForKey:@"keychain_UUID"]
+                                                    token:[defaults objectForKey:@"deviceToken_id"]
+                                                     aram:@"Y"
+                                                 isForced:YES
                                            successHandler:^(id XMLData) {
+                                               
                                                
                                            } failHandler:^(NSError *error, id XMLData) {
                                                
@@ -466,30 +421,28 @@ SHARED_SINGLETON_CLASS(NFRoginViewController);
                 UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"navigationview"];
                 [controller setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
                 [self presentViewController:controller animated:YES completion:nil];
-                
-                
             }
-             
-                                        failHandler:^(NSError *error, id XMLData) {
-                                            UIAlertController * alert=   [UIAlertController
-                                                                          alertControllerWithTitle:@"로그인 실패"
-                                                                          message:@"로그인을 다시 시도해주시기 바랍니다."
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-                                            
-                                            UIAlertAction* ok = [UIAlertAction
-                                                                 actionWithTitle:@"확인"
-                                                                 style:UIAlertActionStyleDefault
-                                                                 handler:^(UIAlertAction * action){
-                                                                 }];
-                                            
-                                            
-                                            [alert addAction:ok];
-                                            
-                                            
-                                            [self presentViewController:alert animated:YES completion:nil];
-                                            
-                                        }];
-            
+
+            failHandler:^(NSError *error, id XMLData) {
+                UIAlertController * alert=   [UIAlertController
+                                              alertControllerWithTitle:@"로그인 실패"
+                                              message:@"로그인을 다시 시도해주시기 바랍니다."
+                                              preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* ok = [UIAlertAction
+                                     actionWithTitle:@"확인"
+                                     style:UIAlertActionStyleDefault
+                                     handler:^(UIAlertAction * action){
+                                     }];
+                
+                
+                [alert addAction:ok];
+                
+                
+                [self presentViewController:alert animated:YES completion:nil];
+                
+            }];
+
             
             
         }
@@ -524,18 +477,18 @@ SHARED_SINGLETON_CLASS(NFRoginViewController);
 }
 
 
+
 - (void)dealloc {
     [_textID release];
     [_textPassword release];
     [_connectionButton release];
     [_joinButton release];
     [_connectionButton release];
-    [_GGloginButton release];
-    [_GGsignout release];
-    [_GGsignout release];
     [_loginbutton release];
+    [_gg_loginbutton release];
     [super dealloc];
 }
+
 
 
 

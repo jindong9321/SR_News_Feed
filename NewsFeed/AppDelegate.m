@@ -10,8 +10,6 @@
 #import "NFRoginViewController.h"
 #import "SRManager.h"
 #import "SRManagerKit.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface AppDelegate (){
@@ -32,17 +30,18 @@
         
         // If there's no cached session, we will show a login button
     } else {
-        UIButton *loginButton = [self.roginviewcontroller loginbutton];
-        [loginButton setTitle:@"Log in with Facebook" forState:UIControlStateNormal];
+        UIButton *inconnectButton = [self.nfmainviewcontroller inconnectionButton];
+        [inconnectButton setTitle:@"" forState:UIControlStateNormal];
     }
-        
-    //    //Google
-    //    NSError *configureError;
-    //    [[GGLContext sharedInstance] configureWithError: &configureError];
-    //    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
-    //    
-    //    [GIDSignIn sharedInstance].delegate = self;
 
+    
+    
+    //Google
+    NSError *configureError;
+    [[GGLContext sharedInstance] configureWithError: &configureError];
+    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
+    
+    [GIDSignIn sharedInstance].delegate = self;
             // APNS
         application.applicationIconBadgeNumber = 0;
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
@@ -79,10 +78,17 @@
             [av show];
             [av release];
         }
-        
+    
+   NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
         return YES;
 }
 
+
+void uncaughtExceptionHandler(NSException *exception) {
+    NSLog(@"\n\n || Crash ||: %@ \n\n",exception);
+    NSLog(@"\n\n || Stack Trace||: %@ \n\n", [exception callStackSymbols]);
+    // Internal error reporting
+}
 
 
 
@@ -91,21 +97,69 @@
 // Override application:openURL:sourceApplication:annotation to call the FBsession object that handles the incoming URL
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-      
-    NSString *url_scheme = [url scheme];
+    NSString *url_scheme = [[NSString alloc] init];
+    url_scheme = [url scheme];
+    NSLog(@" \n\n url_scheme => %@" ,[url scheme]);
     [[NSUserDefaults standardUserDefaults] setObject:url_scheme forKey:@"url_scheme"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     NSLog(@"app_url => %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"url_scheme"]);
     
     if([[url scheme] isEqualToString:@"fb879589285436581"]){
-        return [FBSession.activeSession handleOpenURL:url];
+        return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
     }
     else{
         return [[GIDSignIn sharedInstance] handleURL:url sourceApplication:sourceApplication annotation:annotation];
     }
     return NO;
 
+}
+
+// google
+- (void)signIn:(GIDSignIn *)signIn didDisconnectWithUser:(GIDGoogleUser *)user  withError:(NSError *)error {
+    NSLog(@"\n\n didDisconnectWithUser[1] \n\n");
+    NSDictionary *statusText = @{@"statusText": @"Disconnected user" };
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"ToggleAuthUINotification"
+     object:nil
+     userInfo:statusText];
+    
+}
+
+// google
+- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user  withError:(NSError *)error {
+    NSLog(@"\n\n didSignInForUser[2] \n\n");
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    
+    //Perform any operations on signed in user here.
+    NSString *userId = user.userID;                                 // For client-side use only!
+    
+    
+    NSString *idToken = user.authentication.idToken; // Safe to send to the server
+    NSString *name = user.profile.name;
+    NSString *email = user.profile.email;
+    
+    
+    [prefs setObject:userId forKey:@"SNS_user_id"];
+     [prefs setObject:name forKey:@"SNS_user_name"];
+     [prefs setObject:email forKey:@"SNS_user_email"];
+     [prefs setObject:email forKey:@"user_nameString"];
+     [prefs setObject:@"" forKey:@"SNS_link"];
+    [prefs setObject:idToken forKey:@"SNS_user_Token"];
+
+    
+    NSLog(@" userId => %@\n idToken-> %@\n name-> %@\n email-> %@\n",userId, idToken,name,email);
+    NSDictionary *statusText = @{@"statusText":
+                                     [NSString stringWithFormat:@"Signed in user: %@",
+                                      name]};
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"ToggleAuthUINotification"
+     object:nil
+     userInfo:statusText];
+    
+    [prefs synchronize];
+    
 }
 
 -(void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken{
@@ -153,6 +207,8 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    //Google
+
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -167,11 +223,14 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 
     //facebook
-    [FBSDKAppEvents activateApp];
+    [FBAppCall handleDidBecomeActive];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
 
 @end
